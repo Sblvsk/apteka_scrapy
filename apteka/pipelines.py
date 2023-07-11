@@ -12,7 +12,7 @@ class AptekaPipeline:
         item['title'] = self.process_title(item['title'])
         item['metadata'] = self.process_metadata(item['metadata'], item['RPC'], item['title'])
 
-        line = json.dumps(dict(item)) + ",\n"
+        line = json.dumps(dict(item))
         with open('result.json', 'a+') as f:
             content = json.dumps(line)
             f.write(content)
