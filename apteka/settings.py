@@ -12,8 +12,6 @@ BOT_NAME = "apteka"
 SPIDER_MODULES = ["apteka.spiders"]
 NEWSPIDER_MODULE = "apteka.spiders"
 
-LOG_ENABLED = True
-LOG_LEVEL = "DEBUG"
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 YaBrowser/23.5.4.674 Yowser/2.5 Safari/537.36"
