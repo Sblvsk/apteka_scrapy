@@ -8,9 +8,8 @@ class AptekaPipeline:
         item['price_data'] = self.process_price(item['price_data'])
         item['section'] = self.process_section(item['section'])
         item['title'] = self.process_title(item['title'])
-
-
         item['metadata'] = self.process_metadata(item['metadata'], item['RPC'], item['title'])
+        item['stock'] = self.process_stock(item['stock'])
 
         return item
 
@@ -96,3 +95,10 @@ class AptekaPipeline:
 
         return metadata_dict
 
+    def process_stock(self, stock):
+        stock_dict = {}
+        stock_bool = True if "В наличии" in stock[0] else False
+
+        stock_dict['in_stock'] = stock_bool
+        stock_dict['count'] = 0
+        return stock_dict
