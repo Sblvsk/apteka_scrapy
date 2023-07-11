@@ -5,8 +5,10 @@ from itemloaders.processors import TakeFirst, MapCompose
 def removing_spaces(value):
     return value.strip()
 
+
 def removing_spaces_in_list(data_list):
     return removing_spaces(data_list[0])
+
 
 class AptekaItem(scrapy.Item):
     # define the fields for your item here like:
