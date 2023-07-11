@@ -7,6 +7,7 @@ class AptekaPipeline:
         item['assets'] = self.process_assets(item['assets'], item['RPC'])
         item['price_data'] = self.process_price(item['price_data'])
         item['section'] = self.process_section(item['section'])
+        item['title'] = self.process_title(item['title'])
 
         return item
 
@@ -63,3 +64,11 @@ class AptekaPipeline:
     def process_section(self, section):
         section = section[2:]
         return section
+
+    def process_title(self, title):
+        title_replace = title.replace(' ', '')
+        title_re = re.findall(r"[0-9]+..", title_replace)
+
+        if title_re:
+            title = f"{title}, {title_re[0]}"
+        return title

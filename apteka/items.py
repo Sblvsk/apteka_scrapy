@@ -11,8 +11,6 @@ def removing_spaces_in_list(data_list):
 
 
 class AptekaItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
     timestamp = scrapy.Field(output_processor=TakeFirst())
     RPC = scrapy.Field(output_processor=TakeFirst())
     url = scrapy.Field(output_processor=TakeFirst())
