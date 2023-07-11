@@ -6,7 +6,15 @@ class AptekaPipeline:
     def process_item(self, item, spider):
         item['assets'] = self.process_assets(item['assets'], item['RPC'])
         item['price_data'] = self.process_price(item['price_data'])
+        item['section'] = self.process_section(item['section'])
+
         return item
+
+    def removing_spaces(self, value):
+        return value.strip()
+
+    def removing_spaces_in_list(self, data_list):
+        return [self.removing_spaces(value) for value in data_list]
 
     def process_price(self, price):
         price = self.removing_spaces_in_list(price)
@@ -22,7 +30,7 @@ class AptekaPipeline:
         value_max = float(max(price_for_process))
         discount = 0
         if value_max != value_min:
-            discount = 100 - value_min/(value_max / 100)
+            discount = 100 - value_min / (value_max / 100)
             discount = f'Скидка {discount:.0f}%'
 
         price_dict['current'] = value_min
@@ -52,8 +60,6 @@ class AptekaPipeline:
         assets_dict["video"] = []
         return assets_dict
 
-    def removing_spaces(self, value):
-        return value.strip()
-
-    def removing_spaces_in_list(self, data_list):
-        return [self.removing_spaces(value) for value in data_list]
+    def process_section(self, section):
+        section = section[2:]
+        return section
