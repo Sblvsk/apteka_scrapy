@@ -1,3 +1,5 @@
+import json
+
 from itemadapter import ItemAdapter
 import re
 
@@ -9,6 +11,11 @@ class AptekaPipeline:
         item['section'] = self.process_section(item['section'])
         item['title'] = self.process_title(item['title'])
         item['metadata'] = self.process_metadata(item['metadata'], item['RPC'], item['title'])
+
+        line = json.dumps(dict(item)) + ",\n"
+        with open('result.json', 'a+') as f:
+            content = json.dumps(line)
+            f.write(content)
 
         return item
 
