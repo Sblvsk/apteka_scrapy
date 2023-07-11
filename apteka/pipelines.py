@@ -9,6 +9,9 @@ class AptekaPipeline:
         item['section'] = self.process_section(item['section'])
         item['title'] = self.process_title(item['title'])
 
+
+        item['metadata'] = self.process_metadata(item['metadata'], item['RPC'], item['title'])
+
         return item
 
     def removing_spaces(self, value):
@@ -66,9 +69,30 @@ class AptekaPipeline:
         return section
 
     def process_title(self, title):
+
         title_replace = title.replace(' ', '')
         title_re = re.findall(r"[0-9]+..", title_replace)
 
         if title_re:
             title = f"{title}, {title_re[0]}"
         return title
+
+    def process_metadata(self, metadata, product_code, title):
+        metadata_dict = {}
+        metadata_str = ''
+        country_of_origin = metadata[0]
+        del metadata[0]
+
+        for value in metadata:
+            metadata_str += f"\n{value.strip()}"
+
+        volume = title.split(',')
+        volume = volume[-1]
+
+        metadata_dict['__description'] = metadata_str
+        metadata_dict['COUNTRY_OF_ORIGIN'] = country_of_origin
+        metadata_dict['PRODUCT_CODE'] = product_code
+        metadata_dict['VOLUME'] = volume
+
+        return metadata_dict
+
