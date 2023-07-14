@@ -14,8 +14,8 @@ class AptekaruSpider(scrapy.Spider):
     allowed_domains = ["apteka-ot-sklada.ru"]
     start_urls = [
         "https://apteka-ot-sklada.ru/catalog/medikamenty-i-bady/zabolevaniya-pecheni-i-zhelchnogo-puzyrya/gepatoprotektory",
-        # "https://apteka-ot-sklada.ru/catalog/medikamenty-i-bady/zabolevaniya-serdechno_sosudistoy-sistemy/antigipoksanty",
-        # "https://apteka-ot-sklada.ru/catalog/medikamenty-i-bady/obezbolivayushchie-sredstva/bolevoy-sindrom-silnyy"
+        "https://apteka-ot-sklada.ru/catalog/medikamenty-i-bady/zabolevaniya-serdechno_sosudistoy-sistemy/antigipoksanty",
+        "https://apteka-ot-sklada.ru/catalog/medikamenty-i-bady/obezbolivayushchie-sredstva/bolevoy-sindrom-silnyy"
     ]
 
     def parse(self, response: HtmlResponse):
