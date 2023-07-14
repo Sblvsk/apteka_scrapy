@@ -12,10 +12,8 @@ class AptekaPipeline:
         item['title'] = self.process_title(item['title'])
         item['metadata'] = self.process_metadata(item['metadata'], item['RPC'], item['title'])
 
-        line = json.dumps(dict(item))
-        with open('result.json', 'a+') as f:
-            content = json.dumps(line)
-            f.write(content)
+        line = json.dumps(ItemAdapter(item).asdict()) + ",\n"
+        self.file.write(line)
 
         return item
 
@@ -100,3 +98,9 @@ class AptekaPipeline:
         metadata_dict['VOLUME'] = volume
 
         return metadata_dict
+
+    def open_spider(self, spider):
+        self.file = open("result.json", "w")
+
+    def close_spider(self, spider):
+        self.file.close()
