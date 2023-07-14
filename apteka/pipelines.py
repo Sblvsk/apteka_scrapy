@@ -5,6 +5,9 @@ import re
 
 
 class AptekaPipeline:
+    def __init__(self):
+        self.items_for_json = []
+
     def process_item(self, item, spider):
         item['assets'] = self.process_assets(item['assets'], item['RPC'])
         item['price_data'] = self.process_price(item['price_data'])
@@ -12,8 +15,7 @@ class AptekaPipeline:
         item['title'] = self.process_title(item['title'])
         item['metadata'] = self.process_metadata(item['metadata'], item['RPC'], item['title'])
 
-        line = json.dumps(ItemAdapter(item).asdict()) + ",\n"
-        self.file.write(line)
+        self.items_for_json.append(dict(item))
 
         return item
 
@@ -99,8 +101,6 @@ class AptekaPipeline:
 
         return metadata_dict
 
-    def open_spider(self, spider):
-        self.file = open("result.json", "w")
-
     def close_spider(self, spider):
-        self.file.close()
+        with open('result.json', 'w', encoding='utf-8') as f:
+            json.dump(self.items_for_json, f, ensure_ascii=False)
